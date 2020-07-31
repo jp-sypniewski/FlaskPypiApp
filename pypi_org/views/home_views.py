@@ -9,4 +9,5 @@ blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 @response(template_file='home/index.html')
 def index():
     test_packages = package_service.get_latest_packages()
+    print(str(flask.url_for('static', filename='css/site.css')))
     return {'packages': test_packages}
