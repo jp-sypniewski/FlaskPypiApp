@@ -1,5 +1,6 @@
 import flask
 
+from pypi_org.infrastructure import cookie_auth
 from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import user_service
 
@@ -11,7 +12,18 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    return {}
+    user_id = cookie_auth.get_user_id_via_auth_cookie(flask.request)
+
+    if user_id is None:
+        return flask.redirect('/account/login')
+
+
+    user = user_service.find_user_by_id(user_id)
+    if not user:
+        return flask.redirect('/account/login')
+    return {
+        'user': user
+    }
 
 
 # #### REGISTER ####
@@ -39,7 +51,6 @@ def register_post():
             'error': "Some required fields are missing."
         }
 
-    # TODO create user
     user = user_service.create_user(name, email, password)
     if not user:
         return {
@@ -48,10 +59,10 @@ def register_post():
             'password': password,
             'error': "A user with that email already exists."
         }
+    resp = flask.redirect('/account')
+    cookie_auth.set_auth(resp, user.id)
 
-    # TODO log user in
-
-    return flask.redirect('/account')
+    return resp
 
 
 # #### LOGIN ####
@@ -85,4 +96,15 @@ def login_post():
             'error': "The account does not exist or the password is wrong"
         }
 
-    return flask.redirect('/account')
+    resp = flask.redirect('/account')
+    cookie_auth.set_auth(resp, user.id)
+
+    return resp
+
+# #### LOGOUT ####
+
+@blueprint.route('/account/logout')
+def logout():
+    resp = flask.redirect('/')
+    cookie_auth.logout(resp)
+    return resp

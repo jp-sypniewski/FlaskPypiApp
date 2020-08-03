@@ -51,3 +51,9 @@ def login_user(email, password) -> Optional[User]:
         return None
 
     return User
+
+
+def find_user_by_id(user_id: int) -> Optional[User]:
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == user_id).first()
+    return user
