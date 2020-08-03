@@ -1,10 +1,13 @@
 {% extends 'shared/_layout.html' %}
 {% block main_content %}
-    <h1>Register at PyPI</h1>
+    <form action="" method="POST">
+        <h1>Register at PyPI</h1>
 
-    <div>
-        This will be our form
-    </div>
+        <input type="text" placeholder=" Your name">
+        <input type="text" placeholder=" Your email address">
+        <input type="password" placeholder=" Password">
+        <button type="submit">Register</button>
+    </form>
 {% endblock %}
 
 {% block additional_css %}
