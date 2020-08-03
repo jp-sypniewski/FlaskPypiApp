@@ -35,11 +35,8 @@ def insert_a_package():
     p.releases.append(r)
 
 
-    import sqlalchemy.orm as orm
-    session: orm.Session = db_session.factory()
-
+    session = db_session.create_session()
     session.add(p)
-
     session.commit()
 
 def init_db():
