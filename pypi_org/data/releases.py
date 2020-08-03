@@ -1,6 +1,7 @@
 import datetime
 
 import sqlalchemy as sa
+import sqlalchemy.orm as orm
 
 from pypi_org.data.modelbase import SqlAlchemyBase
 
@@ -20,7 +21,8 @@ class Release(SqlAlchemyBase):
     size = sa.Column(sa.BigInteger)
 
     # Package relationship
-    # ...
+    package_id = sa.Column(sa.String, sa.ForeignKey("packages.id"))
+    package = orm.relation('Package')
 
     @property
     def version_text(self):
