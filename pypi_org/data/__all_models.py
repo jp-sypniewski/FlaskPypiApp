@@ -1,4 +1,6 @@
 # noinspection PyUnresolvedReferences
+from pypi_org.data.audit import Audit
+# noinspection PyUnresolvedReferences
 from pypi_org.data.downloads import Download
 # noinspection PyUnresolvedReferences
 from pypi_org.data.languages import ProgrammingLanguage
