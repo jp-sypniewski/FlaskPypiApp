@@ -3,6 +3,7 @@ import flask
 from pypi_org.infrastructure import cookie_auth, request_dict
 from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import user_service
+from pypi_org.viewmodels.account.index_viewmodel import IndexViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -12,18 +13,10 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    user_id = cookie_auth.get_user_id_via_auth_cookie(flask.request)
-
-    if user_id is None:
+    vm = IndexViewModel()
+    if not vm.user:
         return flask.redirect('/account/login')
-
-
-    user = user_service.find_user_by_id(user_id)
-    if not user:
-        return flask.redirect('/account/login')
-    return {
-        'user': user
-    }
+    return vm.to_dict()
 
 
 # #### REGISTER ####
