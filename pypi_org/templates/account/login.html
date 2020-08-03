@@ -1,11 +1,25 @@
 {% extends 'shared/_layout.html' %}
 {% block main_content %}
-    <h1>Login at PyPI</h1>
 
-    <div>
-        This will be our form
-    </div>
+<div class="form-container">
+    <form action="" method="POST" class="account-form">
+        <h1>Login to PyPI</h1>
+
+        <input name="email" type="text" placeholder=" Your email address" class="form-control" value="{{ email }}">
+        <input type="password" placeholder=" Password" class="form-control">
+        <button type="submit" class="btn btn-success">Log in</button>
+        <div style="clear: both;"></div>
+
+        {% if error %}
+            <div class="error-msg">
+                {{ error }}
+            </div>
+        {% endif %}
+    </form>
+</div>
+
 {% endblock %}
 
 {% block additional_css %}
+    <link rel="stylesheet" href="/static/account.css">
 {% endblock %}

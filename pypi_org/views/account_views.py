@@ -1,8 +1,10 @@
 import flask
 
 from pypi_org.infrastructure.view_modifiers import response
+from pypi_org.services import user_service
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
+
 
 # #### INDEX ####
 
@@ -11,6 +13,7 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 def index():
     return {}
 
+
 # #### REGISTER ####
 
 @blueprint.route('/account/register', methods=['GET'])
@@ -18,10 +21,38 @@ def index():
 def register_get():
     return {}
 
+
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    return {}
+    r = flask.request
+
+    name = r.form.get('name')
+    email = r.form.get('email', '').lower().strip()
+    password = r.form.get('password', '').strip()
+
+    if not name or not email or not password:
+        return {
+            'name': name,
+            'email': email,
+            'password': password,
+            'error': "Some required fields are missing."
+        }
+
+    # TODO create user
+    user = user_service.create_user(name, email, password)
+    if not user:
+        return {
+            'name': name,
+            'email': email,
+            'password': password,
+            'error': "A user with that email already exists."
+        }
+
+    # TODO log user in
+
+    return flask.redirect('/account')
+
 
 # #### LOGIN ####
 
@@ -30,9 +61,28 @@ def register_post():
 def login_get():
     return {}
 
+
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
-    return {}
+    r = flask.request
 
+    email = r.form.get('email', '').lower().strip()
+    password = r.form.get('password', '').strip()
 
+    if not email or not password:
+        return {
+            'email': email,
+            'password': password,
+            'error': "Some required fields are missing."
+        }
+
+    user = user_service.login_user(email, password)
+    if not user:
+        return {
+            'email': email,
+            'password': password,
+            'error': "The account does not exist or the password is wrong"
+        }
+
+    return flask.redirect('/account')
