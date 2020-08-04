@@ -26,8 +26,6 @@ def register_blueprints():
     app.register_blueprint(package_views.blueprint)
     from pypi_org.views import account_views
     app.register_blueprint(account_views.blueprint)
-    from pypi_org.views import cms_views
-    app.register_blueprint(cms_views.blueprint)
 
 
 if __name__ == '__main__':
