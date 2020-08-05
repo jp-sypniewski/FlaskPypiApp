@@ -2,14 +2,21 @@ import os
 import flask
 
 import pypi_org.data.db_session as db_session
+from pypi_org.data.users import User
 from pypi_org.nosql import mongo_setup
 
 app = flask.Flask(__name__)
 
+
 def main():
+    configure()
+
+
+def configure():
     register_blueprints()
     setup_db()
     app.run(debug=False)
+
 
 def setup_db():
     mongo_setup.global_init()
@@ -28,3 +35,5 @@ def register_blueprints():
 
 if __name__ == '__main__':
     main()
+else:
+    configure()
