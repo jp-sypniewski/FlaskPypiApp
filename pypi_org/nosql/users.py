@@ -4,9 +4,9 @@ import mongoengine
 
 class User(mongoengine.Document):
     name = mongoengine.StringField()
-    email = mongoengine.StringField(unique=True)  # index=True
-    hashed_password = mongoengine.StringField()  # index=True
-    created_date = mongoengine.DateTimeField(default=datetime.datetime.now)  # index=True
+    email = mongoengine.StringField(unique=True)
+    hashed_password = mongoengine.StringField()
+    created_date = mongoengine.DateTimeField(default=datetime.datetime.now)
 
     meta = {
         'collection': 'users',

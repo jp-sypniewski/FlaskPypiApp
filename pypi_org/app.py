@@ -22,6 +22,8 @@ def setup_db():
     mongo_setup.global_init()
 
 
+
+
 def register_blueprints():
     from pypi_org.views import home_views
     app.register_blueprint(home_views.blueprint)
