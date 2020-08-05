@@ -40,3 +40,7 @@ def all_packages(limit: int) -> List[Package]:
 
 def get_packages_by_ids(package_ids: List[str]) -> List[Package]:
     return list(Package.objects(id__in=package_ids))
+
+
+def get_latest_release_for_package(package_id: str) -> Optional[Release]:
+    return Release.objects(package_id=package_id).order_by('-created_date').first()
