@@ -36,3 +36,7 @@ def get_package_by_id(package_id: str) -> Optional[Package]:
 
 def all_packages(limit: int) -> List[Package]:
     return list(Package.objects()).limit(limit)
+
+
+def get_packages_by_ids(package_ids: List[str]) -> List[Package]:
+    return list(Package.objects(id__in=package_ids))
