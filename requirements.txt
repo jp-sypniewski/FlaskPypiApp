@@ -1,6 +1,7 @@
 flask
 sqlalchemy
 mongoengine
+werkzeug
 
 progressbar2
 python-dateutil
