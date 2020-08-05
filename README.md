@@ -25,5 +25,5 @@ For SQLAlchemy, I found the syntax familiar having just used JPA in Java/Spring 
 #### Next Steps
 
 * Explore nuance of MVC v MVVM
-* Create MongoDB version
+* Create MongoDB version [NOTE: see branch 'mongo' for MongoDB refactor!]
 * Explore deployment, SSL
