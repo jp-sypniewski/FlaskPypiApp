@@ -6,6 +6,8 @@
 
 This application is a full build of a mock-PyPI site, using the Flask web framework with SQLAlchemy and a SQLite database.  Users register and log in to the application, at which point they may interact with the "packages" stored by the application.
 
+The project is built with the TalkPython series: Building data-driven web apps with Flask and SQLAlchemy.
+
 #### Purpose
 
 This project was undertaken first to utilize SQLAlchemy, with practice on the Flask framework and in the PyCharm IDE of additional benefit.
